@@ -1,0 +1,7 @@
+- name: Install Prometheus, Node Exporter, and Grafana
+  hosts: node
+  become: yes
+  roles:
+    - prometheus
+    - node_exporter
+    - grafana
