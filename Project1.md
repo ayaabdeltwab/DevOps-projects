@@ -60,8 +60,40 @@ Once launched:
 You should see your EC2 instance in the **running** state under the EC2 dashboard, similar to the screenshot below:
 
 Example:<img width="1337" height="579" alt="EC2 with SG" src="https://github.com/user-attachments/assets/2448e303-47c1-4516-a723-34b13687d310" />
+---
+## 🔐 Step 2: Connect to Your Instance via SSH and Update the System
 
-![EC2 Instance Running](./images/ec2-running.png)
+1. Open your terminal (or use **Git Bash** on Windows).  
+2. Navigate to the directory where your **key pair (.pem)** file is stored.  
+3. Run the following command to connect to your EC2 instance:
+
+   ```bash
+   ssh -i "your-key-name.pem" ubuntu@<Public-IP-Address>
+<img width="951" height="364" alt="update " src="https://github.com/user-attachments/assets/b3d4214d-fe30-4a59-a2b6-606a1af4028a" />
+---
+## 🌐 Step 3: Install Apache Web Server
+
+Apache is one of the most popular and reliable web servers used to host websites and web applications.  
+We’ll install and verify that it’s running correctly on your EC2 instance.
 
 ---
+
+### 🧩 Installation Steps
+
+1. Make sure you’re still connected to your EC2 instance via SSH.
+
+2. Install Apache using the following command:
+
+   ```bash
+   sudo apt install apache2 -y
+   
+<img width="1344" height="264" alt="install apache" src="https://github.com/user-attachments/assets/2ec31f60-10a8-4de3-bdad-d2b248a809d1" />
+1-To run apache2 package installation: sudo apt install apache2
+
+2-Next, verify that Apache2 is running as a service in the OS. run: sudo systemctl status apache2
+
+3-The green light indicates Apache2 is running
+
+<img width="1342" height="308" alt="install apache2" src="https://github.com/user-attachments/assets/ccc1731e-b2ca-4e58-a773-0726ce90295b" />
+
 
