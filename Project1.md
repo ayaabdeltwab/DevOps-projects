@@ -33,4 +33,35 @@ Before starting, ensure you have the following:
 4. Install MySQL.  
 5. Install PHP.  
 6. Test the LAMP Stack setup.
-   
+---
+## 🖥️ Step 1: Launch an EC2 Instance on AWS
+
+1. Log in to your **AWS Management Console** and navigate to **EC2** under the “Compute” section.  
+2. Click **Launch Instance** to start creating a new virtual server.  
+3. Enter a **Name** for your instance (e.g., `LAMP-Server`).
+4. Under **Application and OS Images (Amazon Machine Image - AMI)**, select:
+   - **Ubuntu Server 22.04 LTS (Free Tier Eligible)**
+5. Choose an **Instance Type**:
+   - **t2.micro** (Free tier eligible, suitable for testing).
+6. Under **Key Pair (login)**:
+   - Create a new key pair or select an existing one (you will use the `.pem` file to SSH into your instance).
+7. Configure **Network Settings**:
+   - Allow **SSH (Port 22)** and **HTTP (Port 80)** inbound traffic.
+8. Leave storage settings as default (8 GB is fine for testing).  
+9. Click **Launch Instance** to create your EC2 server.
+
+Once launched:
+- Go to **Instances → Running Instances**  
+- Copy your **Public IP Address** — you’ll need it later to connect via SSH.
+
+---
+
+### ✅ Verification
+You should see your EC2 instance in the **running** state under the EC2 dashboard, similar to the screenshot below:
+
+Example:<img width="1337" height="579" alt="EC2 with SG" src="https://github.com/user-attachments/assets/2448e303-47c1-4516-a723-34b13687d310" />
+
+![EC2 Instance Running](./images/ec2-running.png)
+
+---
+
