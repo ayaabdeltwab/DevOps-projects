@@ -96,4 +96,21 @@ We’ll install and verify that it’s running correctly on your EC2 instance.
 
 <img width="1342" height="308" alt="install apache2" src="https://github.com/user-attachments/assets/ccc1731e-b2ca-4e58-a773-0726ce90295b" />
 
+## Step 4: Install MySQL
 
+To install MySQL, run the following command:
+```bash
+sudo apt install mysql-server -y
+When the installation completes, check that MySQL is running as a service:
+sudo systemctl status mysql
+After finishing, test that you can log in to MySQL:
+sudo mysql
+
+<img width="1348" height="371" alt="install mySQL" src="https://github.com/user-attachments/assets/499c22e5-3a7f-4a04-882d-68aae5357841" />
+
+create a new user and grant it privileges:
+CREATE USER 'lamp_user'@'localhost' IDENTIFIED BY 'StrongPassword123!';
+GRANT ALL PRIVILEGES ON lamp_db.* TO 'lamp_user'@'localhost';
+FLUSH PRIVILEGES;
+like:
+<img width="1340" height="357" alt="create user on mySQL" src="https://github.com/user-attachments/assets/721846e0-3771-4587-8e23-1dc5b5541e9a" />
