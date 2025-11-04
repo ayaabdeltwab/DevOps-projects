@@ -164,10 +164,31 @@ server {
   ```
 <img width="759" height="94" alt="config php" src="https://github.com/user-attachments/assets/7c5717e3-317f-49ad-b354-9096587c1534" />
 
+* We need to disable default Nginx host that is currently configured to listen on port 80, for this run:
+  ```bash
+  sudo unlink /etc/nginx/sites-enabled/default
+  ```
+* Next, reload Nginx to apply the changes:
+  ```bash
+  sudo systemctl reload nginx
+  ```
+<img width="508" height="56" alt="disable default Nginx" src="https://github.com/user-attachments/assets/e7d7bde9-d9ba-4a1a-9e30-15c4ad03def5" />
+
+* The website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that the new server block works as expected:
+```bash
+sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html
+<img width="850" height="57" alt="index html file" src="https://github.com/user-attachments/assets/130637b5-f7a4-4f44-a91c-d9d1ee28062a" />
+
+```
+* Open a browser and try to open the website URL using IP address:
+  ```bash
+  http://Public-IP-Address:80
+  ```
 ---
 
 ### **Step 5 – Test PHP with Nginx**  
-- Create a test PHP file:  
+* Now that LAMP stack is completely installed and fully operational. We test it to validate that Nginx can correctly hand .php files off to your PHP processor.
+* Open a new file called info.php within your document root in your text editor:
   ```bash
   sudo nano /var/www/projectLEMP/info.php
   ```  
@@ -178,15 +199,23 @@ server {
   ?>
   ```  
 - Access in browser:  
-  ```
+  ```bash
   http://<Public-IP>/info.php
   ```  
 - You should see the PHP info page confirming successful integration.  
-
+<img width="948" height="599" alt="php_connect_test" src="https://github.com/user-attachments/assets/5f96e205-d5f8-42d4-a4fb-37358529ff66" />
+Remove the created file, as it contains sensitive information about your PHP environment and your Ubuntu server:
+```bash
+sudo rm /var/www/your_domain/info.php
+```
 ---
 
 ### **Step 6 – Retrieve Data from MySQL with PHP**  
-- Create a test database and user:  
+
+* The goal in this step is to create a test database (DB) with simple "To do list" and configure access to it, so the Nginx website would be able to query data from the DB and display it.
+* Because the native MySQL PHP library mysqlnd currently doesn’t support caching_sha2_authentication, the default authentication method for MySQL 8. We’ll need to create a new user with the mysql_native_password authentication method in order to be able to connect to the MySQL database from PHP.
+* I will be creating a database named example_database and a user named example_user:
+    
   ```sql
   CREATE DATABASE example_database;
   CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'PassWord1@';
@@ -200,9 +229,13 @@ server {
     content VARCHAR(255),
     PRIMARY KEY(item_id)
   );
+  ```
+  <img width="734" height="591" alt="databas_config" src="https://github.com/user-attachments/assets/d144771e-6a45-4aaa-9705-0fb03f1fc028" />
+  ```bash
   INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
   INSERT INTO example_database.todo_list (content) VALUES ("Finish LEMP setup");
   ```
+<img width="688" height="580" alt="add databas items " src="https://github.com/user-attachments/assets/5db7d316-9b34-43e2-acc6-20c2154d0267" />
 
 - Create the PHP file to display data:  
   ```bash
@@ -234,6 +267,7 @@ server {
   http://<Public-IP>/todo_list.php
   ```  
   You should see a “TODO” list rendered dynamically from MySQL.
+<img width="731" height="180" alt="the app is done" src="https://github.com/user-attachments/assets/89554d88-b484-4efe-8fd3-0209cdf735c1" />
 
 ---
 
